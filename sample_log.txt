@@ -1,0 +1,515 @@
+INFO - 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+High traffic generated an alert - hits = 1201 at: 1549573956
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+INFO - 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Traffic recovered from alert - hits 1178 at: 1549574046
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573850 - 1549573860
+Section: /api - Count: 1
+Successes: 1 (1.0%)
+Failures: 0 (0.0%)
+Total Requests: 1
+Total Bytes Processed: 1234
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573860 - 1549573870
+Section: /api - Count: 58
+Section: /report - Count: 31
+Successes: 75 (0.8426966292134831%)
+Failures: 14 (0.1573033707865169%)
+Total Requests: 89
+Total Bytes Processed: 109824
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573870 - 1549573880
+Section: /api - Count: 59
+Section: /report - Count: 28
+Successes: 73 (0.8390804597701149%)
+Failures: 14 (0.16091954022988508%)
+Total Requests: 87
+Total Bytes Processed: 107692
+------------------------------------------------------
+INFO - 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+High traffic generated an alert - hits = 1201 at: 1549574162
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573880 - 1549573890
+Section: /api - Count: 63
+Section: /report - Count: 31
+Successes: 74 (0.7872340425531915%)
+Failures: 20 (0.21276595744680848%)
+Total Requests: 94
+Total Bytes Processed: 115441
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573890 - 1549573900
+Section: /api - Count: 60
+Section: /report - Count: 31
+Successes: 67 (0.7362637362637363%)
+Failures: 24 (0.2637362637362637%)
+Total Requests: 91
+Total Bytes Processed: 111857
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573900 - 1549573910
+Section: /api - Count: 60
+Section: /report - Count: 27
+Successes: 73 (0.8390804597701149%)
+Failures: 14 (0.16091954022988508%)
+Total Requests: 87
+Total Bytes Processed: 106161
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573910 - 1549573920
+Section: /api - Count: 60
+Section: /report - Count: 33
+Successes: 82 (0.8817204301075269%)
+Failures: 11 (0.11827956989247312%)
+Total Requests: 93
+Total Bytes Processed: 113948
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573920 - 1549573930
+Section: /api - Count: 147
+Section: /report - Count: 29
+Successes: 129 (0.7329545454545454%)
+Failures: 47 (0.2670454545454546%)
+Total Requests: 176
+Total Bytes Processed: 216084
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573930 - 1549573940
+Section: /api - Count: 152
+Section: /report - Count: 30
+Successes: 147 (0.8076923076923077%)
+Failures: 35 (0.1923076923076923%)
+Total Requests: 182
+Total Bytes Processed: 223500
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573940 - 1549573950
+Section: /api - Count: 152
+Section: /report - Count: 31
+Successes: 140 (0.7650273224043715%)
+Failures: 43 (0.23497267759562845%)
+Total Requests: 183
+Total Bytes Processed: 225182
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573950 - 1549573960
+Section: /api - Count: 152
+Section: /report - Count: 31
+Successes: 139 (0.7595628415300546%)
+Failures: 44 (0.2404371584699454%)
+Total Requests: 183
+Total Bytes Processed: 225615
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573960 - 1549573970
+Section: /api - Count: 145
+Section: /report - Count: 28
+Successes: 137 (0.791907514450867%)
+Failures: 36 (0.20809248554913296%)
+Total Requests: 173
+Total Bytes Processed: 213116
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573970 - 1549573980
+Section: /api - Count: 151
+Section: /report - Count: 30
+Successes: 139 (0.7679558011049724%)
+Failures: 42 (0.2320441988950276%)
+Total Requests: 181
+Total Bytes Processed: 222638
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573980 - 1549573990
+Section: /api - Count: 20
+Section: /report - Count: 10
+Successes: 24 (0.8%)
+Failures: 6 (0.19999999999999996%)
+Total Requests: 30
+Total Bytes Processed: 36831
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549573990 - 1549574000
+Section: /api - Count: 20
+Section: /report - Count: 10
+Successes: 26 (0.8666666666666667%)
+Failures: 4 (0.1333333333333333%)
+Total Requests: 30
+Total Bytes Processed: 37622
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574000 - 1549574010
+Section: /api - Count: 20
+Section: /report - Count: 10
+Successes: 27 (0.9%)
+Failures: 3 (0.09999999999999998%)
+Total Requests: 30
+Total Bytes Processed: 37461
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574010 - 1549574020
+Section: /api - Count: 19
+Section: /report - Count: 10
+Successes: 24 (0.8275862068965517%)
+Failures: 5 (0.1724137931034483%)
+Total Requests: 29
+Total Bytes Processed: 35368
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574020 - 1549574030
+Section: /api - Count: 21
+Section: /report - Count: 10
+Successes: 23 (0.7419354838709677%)
+Failures: 8 (0.25806451612903225%)
+Total Requests: 31
+Total Bytes Processed: 38267
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574030 - 1549574040
+Section: /api - Count: 21
+Section: /report - Count: 10
+Successes: 26 (0.8387096774193549%)
+Failures: 5 (0.16129032258064513%)
+Total Requests: 31
+Total Bytes Processed: 38138
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574040 - 1549574050
+Section: /api - Count: 18
+Section: /report - Count: 10
+Successes: 22 (0.7857142857142857%)
+Failures: 6 (0.2142857142857143%)
+Total Requests: 28
+Total Bytes Processed: 34586
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574050 - 1549574060
+Section: /api - Count: 21
+Section: /report - Count: 10
+Successes: 26 (0.8387096774193549%)
+Failures: 5 (0.16129032258064513%)
+Total Requests: 31
+Total Bytes Processed: 37544
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574060 - 1549574070
+Section: /api - Count: 20
+Section: /report - Count: 10
+Successes: 20 (0.6666666666666666%)
+Failures: 10 (0.33333333333333337%)
+Total Requests: 30
+Total Bytes Processed: 36729
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574070 - 1549574080
+Section: /api - Count: 20
+Section: /report - Count: 11
+Successes: 27 (0.8709677419354839%)
+Failures: 4 (0.12903225806451613%)
+Total Requests: 31
+Total Bytes Processed: 38313
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574080 - 1549574090
+Section: /api - Count: 20
+Section: /report - Count: 10
+Successes: 21 (0.7%)
+Failures: 9 (0.30000000000000004%)
+Total Requests: 30
+Total Bytes Processed: 36749
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574090 - 1549574100
+Section: /api - Count: 21
+Section: /report - Count: 9
+Successes: 27 (0.9%)
+Failures: 3 (0.09999999999999998%)
+Total Requests: 30
+Total Bytes Processed: 36387
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574100 - 1549574110
+Section: /api - Count: 20
+Section: /report - Count: 10
+Successes: 25 (0.8333333333333334%)
+Failures: 5 (0.16666666666666663%)
+Total Requests: 30
+Total Bytes Processed: 36530
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574110 - 1549574120
+Section: /api - Count: 19
+Section: /report - Count: 10
+Successes: 26 (0.896551724137931%)
+Failures: 3 (0.10344827586206895%)
+Total Requests: 29
+Total Bytes Processed: 35475
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574120 - 1549574130
+Section: /api - Count: 24
+Section: /report - Count: 10
+Successes: 26 (0.7647058823529411%)
+Failures: 8 (0.23529411764705888%)
+Total Requests: 34
+Total Bytes Processed: 41683
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574130 - 1549574140
+Section: /api - Count: 249
+Section: /report - Count: 30
+Successes: 217 (0.7777777777777778%)
+Failures: 62 (0.2222222222222222%)
+Total Requests: 279
+Total Bytes Processed: 343813
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574140 - 1549574150
+Section: /api - Count: 249
+Section: /report - Count: 30
+Successes: 221 (0.7921146953405018%)
+Failures: 58 (0.20788530465949817%)
+Total Requests: 279
+Total Bytes Processed: 343334
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574190 - 1549574200
+Section: /api - Count: 250
+Section: /report - Count: 30
+Successes: 237 (0.8464285714285714%)
+Failures: 43 (0.15357142857142858%)
+Total Requests: 280
+Total Bytes Processed: 343674
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574180 - 1549574190
+Section: /api - Count: 247
+Section: /report - Count: 30
+Successes: 222 (0.8014440433212996%)
+Failures: 55 (0.1985559566787004%)
+Total Requests: 277
+Total Bytes Processed: 340577
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574160 - 1549574170
+Section: /api - Count: 251
+Section: /report - Count: 29
+Successes: 229 (0.8178571428571428%)
+Failures: 51 (0.18214285714285716%)
+Total Requests: 280
+Total Bytes Processed: 344446
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574150 - 1549574160
+Section: /api - Count: 249
+Section: /report - Count: 30
+Successes: 224 (0.8028673835125448%)
+Failures: 55 (0.19713261648745517%)
+Total Requests: 279
+Total Bytes Processed: 343488
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574170 - 1549574180
+Section: /api - Count: 249
+Section: /report - Count: 31
+Successes: 220 (0.7857142857142857%)
+Failures: 60 (0.2142857142857143%)
+Total Requests: 280
+Total Bytes Processed: 344297
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574200 - 1549574210
+Section: /api - Count: 254
+Section: /report - Count: 30
+Successes: 229 (0.8063380281690141%)
+Failures: 55 (0.19366197183098588%)
+Total Requests: 284
+Total Bytes Processed: 349088
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574210 - 1549574220
+Section: /api - Count: 59
+Section: /report - Count: 6
+Successes: 57 (0.8769230769230769%)
+Failures: 8 (0.12307692307692308%)
+Total Requests: 65
+Total Bytes Processed: 79780
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574220 - 1549574230
+Section: /api - Count: 2
+Successes: 2 (1.0%)
+Failures: 0 (0.0%)
+Total Requests: 2
+Total Bytes Processed: 2428
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574230 - 1549574240
+Section: /api - Count: 1
+Successes: 1 (1.0%)
+Failures: 0 (0.0%)
+Total Requests: 1
+Total Bytes Processed: 1234
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574240 - 1549574250
+Section: /api - Count: 1
+Successes: 1 (1.0%)
+Failures: 0 (0.0%)
+Total Requests: 1
+Total Bytes Processed: 1136
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574250 - 1549574260
+Section: /api - Count: 1
+Successes: 0 (0.0%)
+Failures: 1 (1.0%)
+Total Requests: 1
+Total Bytes Processed: 1194
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574260 - 1549574270
+Section: /api - Count: 4
+Section: /report - Count: 3
+Successes: 6 (0.8571428571428571%)
+Failures: 1 (0.1428571428571429%)
+Total Requests: 7
+Total Bytes Processed: 8713
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574270 - 1549574280
+Section: /report - Count: 6
+Section: /api - Count: 5
+Successes: 8 (0.7272727272727273%)
+Failures: 3 (0.2727272727272727%)
+Total Requests: 11
+Total Bytes Processed: 13715
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574280 - 1549574290
+Section: /api - Count: 8
+Section: /report - Count: 7
+Successes: 13 (0.8666666666666667%)
+Failures: 2 (0.1333333333333333%)
+Total Requests: 15
+Total Bytes Processed: 18414
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574290 - 1549574300
+Section: /report - Count: 10
+Section: /api - Count: 10
+Successes: 19 (0.95%)
+Failures: 1 (0.050000000000000044%)
+Total Requests: 20
+Total Bytes Processed: 24441
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574300 - 1549574310
+Section: /api - Count: 10
+Section: /report - Count: 9
+Successes: 12 (0.631578947368421%)
+Failures: 7 (0.368421052631579%)
+Total Requests: 19
+Total Bytes Processed: 23467
+------------------------------------------------------
+INFO - 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Traffic recovered from alert - hits 852 at: 1549574328
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574310 - 1549574320
+Section: /report - Count: 12
+Section: /api - Count: 10
+Successes: 20 (0.9090909090909091%)
+Failures: 2 (0.09090909090909094%)
+Total Requests: 22
+Total Bytes Processed: 26950
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574320 - 1549574330
+Section: /api - Count: 10
+Section: /report - Count: 9
+Successes: 13 (0.6842105263157895%)
+Failures: 6 (0.3157894736842105%)
+Total Requests: 19
+Total Bytes Processed: 23186
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574330 - 1549574340
+Section: /api - Count: 10
+Section: /report - Count: 9
+Successes: 16 (0.8421052631578947%)
+Failures: 3 (0.1578947368421053%)
+Total Requests: 19
+Total Bytes Processed: 23443
+------------------------------------------------------
+INFO - 
+------------------------------------------------------
+Top sections for interval: 1549574340 - 1549574350
+Section: /report - Count: 1
+Successes: 1 (1.0%)
+Failures: 0 (0.0%)
+Total Requests: 1
+Total Bytes Processed: 1261
+------------------------------------------------------
+
