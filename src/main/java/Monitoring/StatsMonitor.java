@@ -8,72 +8,38 @@ import Models.StatsPipelineGroupedRecord;
 import Models.StatsPipelineRecord;
 
 import Shared.SharedResources;
+import Views.StatsView;
 
 public class StatsMonitor extends StreamingMonitor {
 
     protected final ArrayBlockingQueue<StatsPipelineGroupedRecord> monitoringQueue;
     protected final Integer intervalLength;
 
-    public StatsMonitor(ArrayBlockingQueue<StatsPipelineGroupedRecord> monitoringQueue, Integer threshold, Integer intervalLength) {
+    public StatsMonitor(ArrayBlockingQueue<StatsPipelineGroupedRecord> monitoringQueue, Integer intervalLength) {
         this.monitoringQueue = monitoringQueue;
         this.intervalLength = intervalLength;
     }
 
-    public void run() {
-        try {
-            Thread.sleep(SharedResources.instance().threadSleepCount);
-            while (true) {
-                if(Thread.currentThread().isInterrupted()) {
-                    break;
-                }
-                this.processGroupedIntervals();
-            }
-        } catch(InterruptedException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    // For all hash keys (floored interval timestamp) that are greater than
-    // remove from hash and print to console.
-    // Console output will chase processors and only disregard threshold when
-    // collector is idle
-    protected void processGroupedIntervals() {
+    // Poll monitoring queue for StatsPipelineGroupedRecord objects and build stats
+    // Example:
+    //   - 123456789 buckets to 12345678 bucket
+    public void analyze() {
         StatsPipelineGroupedRecord group = this.monitoringQueue.poll();
         if(group != null) {
-            this.buildStats(group.getDate(), new ArrayList<>(group.getRecords()));
+            this.presentView(group.getDate(), new ArrayList<>(group.getRecords()));
         }
     }
 
-    // Present top sections and debug status in console
-    // Example:
-    //    ------------------------------------------------------
-    //    Top sections for interval: 1549574210 - 1549574220
-    //    Section: /api - Count: 242
-    //    Section: /report - Count: 30
-    //    Successes: 226 (0.8308823529411765%)
-    //    Failures: 46 (0.16911764705882348%)
-    //    Total Requests: 272
-    //    Total Bytes Processed: 334298
-    //    ------------------------------------------------------
-    protected void buildStats(Integer key, List<StatsPipelineRecord> data) {
-        List<String> stats = new ArrayList<>();
-        stats.add("\n------------------------------------------------------");
-        stats.add("Top sections for interval: "+key+" - "+(key + intervalLength));
-
-        topSections(key, data).forEach(x -> stats.add("Section: "+x.getKey()+" - Count: "+x.getValue()));
-
+    // Build StatsView and present statistics for interval
+    protected void presentView(Integer key, List<StatsPipelineRecord> data) {
+        long requestsTotal = data.size();
         long successes = totalSuccesses(data);
-        long requests = data.size();
-        long failures = requests - successes;
-        double successPercentage = (double)successes / requests;
-        double failurePercentage = 1.0 - successPercentage;
-
-        stats.add("Successes: "+successes+" ("+successPercentage+"%)");
-        stats.add("Failures: "+failures+" ("+failurePercentage+"%)");
-        stats.add("Total Requests: "+requests);
-        stats.add("Total Bytes Processed: "+totalBytes(data));
-        stats.add("------------------------------------------------------");
-        present(String.join("\n", stats));
+        StatsView view = StatsView.build(requestsTotal, key, key + (intervalLength - 1));
+        view.addTopSections(topSections(key, data));
+        view.addSuccessTotals(successes);
+        view.addFailureTotals(requestsTotal - successes);
+        view.addByteTotals(totalBytes(data));
+        view.render();
     }
 
     // Calculate top N sections by section name and hit count for given interval

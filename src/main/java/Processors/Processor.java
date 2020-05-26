@@ -1,8 +1,11 @@
 package Processors;
 
+import Collectors.Sendable;
+import Shared.SharedResources;
+
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class Processor<T> implements Runnable, Processable {
+public class Processor<T> implements Runnable, Processable, Sendable {
 
     final protected ArrayBlockingQueue<T> processingQueue;
 
@@ -10,11 +13,22 @@ public class Processor<T> implements Runnable, Processable {
         this.processingQueue = queue;
     }
 
-    @Override
-    public void execute() { }
+    public void run() {
+        try {
+            Thread.sleep(SharedResources.instance().threadSleepCount);
+            while (true) {
+                if(Thread.currentThread().isInterrupted()) {
+                    break;
+                }
+                this.execute();
+            }
+        } catch(InterruptedException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @Override
-    public void run() { }
+    public void execute() { }
 
     @Override
     public <U> void send(U data) { }

@@ -32,7 +32,7 @@ public class SharedResources {
         return instance;
     }
 
-    public synchronized void setProcessingTime(Integer clock) {
+    public synchronized void setClockTime(Integer clock) {
         this.clock = clock;
     }
 

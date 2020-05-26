@@ -1,13 +1,14 @@
 package Monitoring;
 
 import Shared.SharedResources;
+import Views.RateView;
 
 public class RateMonitor extends StreamingMonitor {
 
-    protected Integer averageMessageRate;
-    protected Boolean flag;
-    protected Integer windowLengthInSeconds;
+    final protected Integer averageMessageRate;
+    final protected Integer windowLengthInSeconds;
     final protected SharedResources sharedResources;
+    protected Boolean flag;
 
     public RateMonitor(Integer averageMessageRate, Integer windowLengthInSeconds) {
         this.averageMessageRate = averageMessageRate;
@@ -16,17 +17,23 @@ public class RateMonitor extends StreamingMonitor {
         this.sharedResources = SharedResources.instance();
     }
 
-    public void run() {
-        try {
-            Thread.sleep(SharedResources.instance().threadSleepCount);
-            while (true) {
-                if(Thread.currentThread().isInterrupted()) {
-                    break;
-                }
-                this.analyzeRate();
-            }
-        } catch(InterruptedException ex) {
-            ex.printStackTrace();
+    public void analyze() {
+        Integer clock = getCurrentClockTime();
+        if(clock == null) {
+            return;
+        }
+
+        processRate(clock, getCurrentRateWindowCount());
+        compress(clock - windowLengthInSeconds);
+    }
+
+    public void processRate(Integer clock, Integer windowCount) {
+        if(shouldAlert(windowCount)) {
+            RateView.alert(windowCount, clock);
+            this.toggleFlag();
+        } else if(shouldRecover(windowCount)) {
+            RateView.recover(windowCount, clock);
+            this.toggleFlag();
         }
     }
 
@@ -38,36 +45,20 @@ public class RateMonitor extends StreamingMonitor {
         return SharedResources.instance().getClockTime();
     }
 
-    protected void analyzeRate() {
-        Integer clock = getCurrentClockTime();
-        if(clock == null) {
-            return;
-        }
-
-        processRate(clock, getCurrentRateWindowCount());
-        compress(clock - windowLengthInSeconds);
-    }
-
     protected void compress(Integer value) {
         sharedResources.rateWindow.compress(value);
     }
 
-    public void processRate(Integer clock, Integer windowCount) {
-        if(!this.flag && windowCount > averageMessageRate) {
-            this.present("High traffic generated an alert - hits = "+windowCount+" at: "+clock);
-            this.toggleFlag();
-        } else if(this.flag && windowCount <= averageMessageRate) {
-            this.present("Traffic recovered from alert - hits "+windowCount+" at: "+clock);
-            this.toggleFlag();
-        }
+    protected Boolean shouldAlert(Integer windowCount) {
+        return !this.flag && windowCount > averageMessageRate;
+    }
+
+    protected Boolean shouldRecover(Integer windowCount) {
+        return this.flag && windowCount <= averageMessageRate;
     }
 
     protected void toggleFlag() {
         this.flag = !this.flag;
-    }
-
-    public void present(String message) {
-        log.info("\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n"+message+"\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     }
 
 }

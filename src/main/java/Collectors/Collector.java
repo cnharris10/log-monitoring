@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Collector implements Runnable, FileCollector {
+public class Collector implements Runnable, Collectable, Sendable {
 
     final protected Scanner scanner;
     final protected String filepath;
@@ -22,12 +22,8 @@ public class Collector implements Runnable, FileCollector {
         this.scanner = this.buildScanner();
     }
 
-    public void addStream(Pipeline pipeline) {
+    public void addPipeline(Pipeline pipeline) {
         this.pipelines.add(pipeline);
-    }
-
-    protected Scanner buildScanner() throws Exception {
-        return new Scanner(new File(this.filepath));
     }
 
     // Read input file one line at a time and queue massaged data into N pipelines
@@ -47,15 +43,21 @@ public class Collector implements Runnable, FileCollector {
         setIdle(true);
     }
 
-    // For each registered pipeline, ingest LogRecord
-    public void send(String rawLine) {
-        LogRecord line = LogRecord.parse(rawLine);
-        this.pipelines.forEach(pipeline -> pipeline.ingest(line));
+    @Override
+    public <T> void send(T data) {
+        LogRecord line = LogRecord.parse((String)data);
+        if(line != null) {
+            this.pipelines.forEach(pipeline -> pipeline.ingest(line));
+        }
     }
 
     // Track whether collector is running or idle
-    protected void setIdle(Boolean flag) {
+    public void setIdle(Boolean flag) {
         SharedResources.instance().setIdle(flag);
+    }
+
+    protected Scanner buildScanner() throws Exception {
+        return new Scanner(new File(this.filepath));
     }
 
     // Read log file and post massaged log line contents to available pipelines
@@ -72,4 +74,5 @@ public class Collector implements Runnable, FileCollector {
             ex.printStackTrace();
         }
     }
+
 }

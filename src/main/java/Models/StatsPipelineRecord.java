@@ -37,6 +37,8 @@ public class StatsPipelineRecord extends Record {
         return date;
     }
 
+    public Integer getIntervalDate(Integer intervalLength) { return getDate() - (date % intervalLength); }
+
     public void setBytes(Integer bytes) { this.bytes = bytes; }
 
     public Integer getBytes() { return bytes; }

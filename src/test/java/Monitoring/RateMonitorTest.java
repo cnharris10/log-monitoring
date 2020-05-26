@@ -2,6 +2,7 @@ package Monitoring;
 
 import Shared.ConcurrentSlidingWindow;
 import Shared.SharedResources;
+import Views.RateView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +40,7 @@ class RateMonitorTest {
         SharedResources sharedResourcesSpy = Mockito.spy(sharedResources);
         when(sharedResourcesSpy.getClockTime()).thenReturn(null);
         verify(sharedResourcesSpy, never()).getRateWindowCount();
-        monitorSpy.analyzeRate();
+        monitorSpy.analyze();
     }
 
     @Test
@@ -49,7 +50,7 @@ class RateMonitorTest {
         RateMonitor monitorSpy = Mockito.spy(monitor);
         when(monitorSpy.getCurrentClockTime()).thenReturn(clock);
         when(monitorSpy.getCurrentRateWindowCount()).thenReturn(rateWindowCount);
-        monitorSpy.analyzeRate();
+        monitorSpy.analyze();
         verify(monitorSpy, times(1)).processRate(123456789, 200);
         verify(monitorSpy, times(1)).compress(123456669);
     }
@@ -58,7 +59,7 @@ class RateMonitorTest {
     void testProcessRateWithGeneratedAlert() {
         RateMonitor monitorSpy = Mockito.spy(monitor);
         monitorSpy.processRate(123456789, 1000);
-        verify(monitorSpy, times(1)).present("High traffic generated an alert - hits = 1000 at: 123456789");
+        verify(monitorSpy, times(1)).shouldAlert(1000);
         verify(monitorSpy, times(1)).toggleFlag();
         assertEquals(monitorSpy.flag, true);
     }
@@ -68,7 +69,7 @@ class RateMonitorTest {
         RateMonitor monitorSpy = Mockito.spy(monitor);
         monitorSpy.flag = true;
         monitorSpy.processRate(123456789, 1);
-        verify(monitorSpy, times(1)).present("Traffic recovered from alert - hits 1 at: 123456789");
+        verify(monitorSpy, times(1)).shouldAlert(1);
         verify(monitorSpy, times(1)).toggleFlag();
         assertEquals(monitorSpy.flag, false);
     }

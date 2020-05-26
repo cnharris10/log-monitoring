@@ -1,15 +1,24 @@
 package Monitoring;
 
-import org.apache.log4j.Logger;
+
+import Shared.SharedResources;
 
 public class StreamingMonitor implements Monitorable, Runnable {
 
-    static Logger log = Logger.getLogger(StreamingMonitor.class);
-
-    public void present(String data){
-        log.info(data);
+    public void run() {
+        try {
+            Thread.sleep(SharedResources.instance().threadSleepCount);
+            while (true) {
+                if(Thread.currentThread().isInterrupted()) {
+                    break;
+                }
+                this.analyze();
+            }
+        } catch(InterruptedException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    public void run() { }
-
+    @Override
+    public void analyze() { }
 }

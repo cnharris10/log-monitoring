@@ -9,11 +9,11 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class StatsProcessor extends Processor {
 
-    private ArrayBlockingQueue<StatsPipelineGroupedRecord> monitoringQueue;
-    private TreeSet<Integer> sentGroupDates;
-    private final Integer intervalLength;
-    private final Integer processingWindow;
-    private HashMap<Integer, List<StatsPipelineRecord>> map;
+    protected ArrayBlockingQueue<StatsPipelineGroupedRecord> monitoringQueue;
+    protected TreeSet<Integer> sentGroupDates;
+    protected final Integer intervalLength;
+    protected final Integer processingWindow;
+    protected HashMap<Integer, List<StatsPipelineRecord>> map;
 
     public StatsProcessor(ArrayBlockingQueue<StatsPipelineRecord> processingQueue,
                           ArrayBlockingQueue<StatsPipelineGroupedRecord> monitoringQueue,
@@ -27,6 +27,7 @@ public class StatsProcessor extends Processor {
         this.map = new HashMap<>();
     }
 
+    // For each received StatsPipelineRecord, build interval groups and send to stats monitor
     public void execute() {
         StatsPipelineRecord line = receive();
         Integer clock = SharedResources.instance().getClockTime();
@@ -36,30 +37,25 @@ public class StatsProcessor extends Processor {
         this.sendGroupings(clock);
     }
 
-    public void run() {
-        try {
-            Thread.sleep(SharedResources.instance().threadSleepCount);
-            while (true) {
-                if(Thread.currentThread().isInterrupted()) {
-                    break;
-                }
-                this.execute();
-            }
-        } catch(InterruptedException ex) {
-            ex.printStackTrace();
-        }
+    public StatsPipelineRecord receive() {
+        return (StatsPipelineRecord)this.processingQueue.poll();
+    }
+
+    public void send(StatsPipelineGroupedRecord group) {
+        this.monitoringQueue.offer(group);
     }
 
     // Bucket every line item by floored (date % 10) date
-    // Synchronize map access to be thread-safe
+    // Set clock time to log line that was just processed
     public void bucketLogLineIntervalByFlooredStart(StatsPipelineRecord line) {
         Integer date = line.getDate();
-        Integer key = date - (date % intervalLength);
+        Integer key = line.getIntervalDate(intervalLength);
         map.putIfAbsent(key, new ArrayList<>());
         map.get(key).add(line);
-        SharedResources.instance().setProcessingTime(date);
+        SharedResources.instance().setClockTime(date);
     }
 
+    // At most-once send, interval groups to stats monitor
     public void sendGroupings(Integer clock) {
         for (Map.Entry<Integer, List<StatsPipelineRecord>> integerListEntry : map.entrySet()) {
             Integer key = integerListEntry.getKey();
@@ -69,14 +65,6 @@ public class StatsProcessor extends Processor {
                 this.sentGroupDates.add(key);
             }
         }
-    }
-
-    public StatsPipelineRecord receive() {
-        return (StatsPipelineRecord)this.processingQueue.poll();
-    }
-
-    public void send(StatsPipelineGroupedRecord group) {
-        this.monitoringQueue.offer(group);
     }
 
     // Send group interval to StatsMonitor at most once.

@@ -1,6 +1,7 @@
 package Collectors;
 
 import Models.LogRecord;
+import Pipelines.Pipeline;
 import Pipelines.RatePipeline;
 import Pipelines.StatsPipeline;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.channels.Pipe;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -47,6 +49,40 @@ class CollectorTest {
         assertEquals(collectorSpy.filepath, defaultFilename);
         assertEquals(collectorSpy.pipelines.getClass(), ArrayList.class);
         assertNotNull(collectorSpy.scanner);
+    }
+
+    @Test
+    void testAddPipeline() {
+        try {
+            String filename = "/tmp/header_only.txt";
+            FileWriter myWriter = new FileWriter(filename);
+            myWriter.write("remotehost");
+            myWriter.close();
+            Collector collectorHeaderOnly = new Collector(filename);
+            Collector collectorSpy = Mockito.spy(collectorHeaderOnly);
+            ArrayBlockingQueue<Integer> queue = new ArrayBlockingQueue<>(1);
+            collectorSpy.addPipeline(new Pipeline(queue));
+            assertEquals(collectorSpy.pipelines.size(), 1);
+
+        } catch(Exception ex) { }
+    }
+
+    @Test
+    void testSend() {
+        try {
+            String filename = "/tmp/header_only.txt";
+            String line = "10.0.0.1,-,apache,1549574334,GET /api/user HTTP/1.0,200,1194";
+            FileWriter myWriter = new FileWriter(filename);
+            myWriter.write("remotehost");
+            myWriter.close();
+            Collector collectorHeaderOnly = new Collector(filename);
+            Pipeline pipeline = new Pipeline(new ArrayBlockingQueue(1));
+            collector.addPipeline(pipeline);
+            Collector collectorSpy = Mockito.spy(collectorHeaderOnly);
+            assertEquals(collectorSpy.pipelines.get(0), pipeline);
+
+
+        } catch(Exception ex) { }
     }
 
     @Test
@@ -96,8 +132,8 @@ class CollectorTest {
             RatePipeline rateStream = new RatePipeline(new ArrayBlockingQueue<>(1));
             StatsPipeline statsStreamSpy = Mockito.spy(statsStream);
             RatePipeline rateStreamSpy = Mockito.spy(rateStream);
-            collectorSpy.addStream(statsStreamSpy);
-            collectorSpy.addStream(rateStreamSpy);
+            collectorSpy.addPipeline(statsStreamSpy);
+            collectorSpy.addPipeline(rateStreamSpy);
             collectorSpy.send(line);
             verify(statsStreamSpy, times(1)).ingest(isA(LogRecord.class));
             verify(rateStreamSpy, times(1)).ingest(isA(LogRecord.class));

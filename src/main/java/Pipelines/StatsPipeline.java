@@ -11,7 +11,7 @@ public class StatsPipeline extends Pipeline {
         super(queue);
     }
 
-    @Override public void ingest(LogRecord line) {
+    public void ingest(LogRecord line) {
         this.queue.offer(line.statsData());
     }
 
