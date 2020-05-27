@@ -23,7 +23,7 @@ public class LogMonitorManager {
     public static Integer messagesPerSecond;
     public static Integer averageMessageRate;
     public static Integer intervalLength = 10;
-    public static Integer processingWindow = 60;
+    public static Integer processingWindow = 30;
     public static Integer numberOfSecondsInTwoMinutes = 120;
     public static List<Thread> threads;
 
@@ -59,6 +59,7 @@ public class LogMonitorManager {
     }
 
     public static List<Thread> buildComponents() throws Exception {
+        log.info("Initializing application...");
         SharedResources instance = SharedResources.instance();
         threads = new ArrayList<>();
 

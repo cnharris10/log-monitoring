@@ -10,8 +10,8 @@ Given a provided log file (see Input section) at a desired message rate, this ap
 
 This application consists of 3 generalized pipeline steps:
 - Collection
-- Processing
-- Monitoring
+- Processor
+- Monitors
 
 with data between steps stored within shared Queues.
 
@@ -25,6 +25,7 @@ with data between steps stored within shared Queues.
 - Processes incoming data based on each processor's corresponding function and sends processed data to paired monitor
 - StatsProcessor
     - Groups all StatPipelineRecords into 10 second intervals (StatsPipelineGroupedRecord) and sends each interval grouping to corresponding StatsMonitor.
+    - After a grouping interval is 30 seconds older than the current clock time, it is sent to the StatsMonitor (design decision)
 - RateProcessor
     - Acts as a pass-through and sends raw data to its corresponding RateMonitor.
 
@@ -75,6 +76,7 @@ See top-level file: sample_log.txt for output of a previous application run.
 
 ## General Areas for Improvement
 - Implement thread pool instead of 1 continuous thread per pipeline step.
+- Run a cleanup thread for the StatsProcessor's WeakHashMap to nullify key objects.  As grouped intervals are sent to the StatsMonitor, allow GC to clean up these grouped intervals objects safely.
 - Support multiple output/input types/connectors
     - Process data from/to files, database, streams, object stores, etc.
 - Stricter log line interpolation (if possible)

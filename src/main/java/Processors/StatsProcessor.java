@@ -13,7 +13,7 @@ public class StatsProcessor extends Processor {
     protected TreeSet<Integer> sentGroupDates;
     protected final Integer intervalLength;
     protected final Integer processingWindow;
-    protected HashMap<Integer, List<StatsPipelineRecord>> map;
+    protected WeakHashMap<Integer, List<StatsPipelineRecord>> map;
 
     public StatsProcessor(ArrayBlockingQueue<StatsPipelineRecord> processingQueue,
                           ArrayBlockingQueue<StatsPipelineGroupedRecord> monitoringQueue,
@@ -24,7 +24,7 @@ public class StatsProcessor extends Processor {
         this.sentGroupDates = new TreeSet<>();
         this.intervalLength = intervalLength;
         this.processingWindow = processingWindow;
-        this.map = new HashMap<>();
+        this.map = new WeakHashMap<>();
     }
 
     // For each received StatsPipelineRecord, build interval groups and send to stats monitor
@@ -71,8 +71,8 @@ public class StatsProcessor extends Processor {
     //  - clock is not null (Must have processed something upstream)
     //  - (clock - group time) > processingWindow
     //    - Examples:
-    //      - True: 1549574437 (processing time) - 1549574300 (group time) > 60 (processingWindow)
-    //      - False: 1549574337 (processing time) - 1549574300 (group time) > 60 (processingWindow)
+    //      - True: 1549574437 (processing time) - 1549574300 (group time) > 30 (processingWindow)
+    //      - False: 1549574337 (processing time) - 1549574300 (group time) > 30 (processingWindow)
     //  - Collector has declared itself idle (not sending more logs)
     public Boolean shouldSendGroupings(Integer clock, Integer key) {
         if(clock == null) {
