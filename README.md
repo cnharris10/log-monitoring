@@ -65,7 +65,7 @@ Example: **10**
 Example:`java -jar httplogstreaming.jar /tmp/log.txt 10`
 
 ## Sample output
-See top-level file: sample_log.txt for output of a previous application run.
+See top-level file: application_log.txt for output of a previous application run.
 
 ## Testing
 
