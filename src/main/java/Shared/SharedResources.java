@@ -3,6 +3,8 @@ package Shared;
 import Models.StatsPipelineGroupedRecord;
 import Models.StatsPipelineRecord;
 
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class SharedResources {
@@ -12,16 +14,17 @@ public class SharedResources {
     final public ArrayBlockingQueue<StatsPipelineGroupedRecord> statsMonitoringQueue;
     final public ArrayBlockingQueue<Integer> rateProcessingQueue;
     final public ConcurrentSlidingWindow rateWindow;
+    final public LinkedHashMap<Integer, List<StatsPipelineRecord>> map;
     final public Integer threadSleepCount = 10;
 
     private Integer clock;
-    private Boolean collectorIdle;
     private Integer capacity = 1000;
 
     private SharedResources(){
         this.statsProcessingQueue = new ArrayBlockingQueue<>(capacity);
         this.rateProcessingQueue = new ArrayBlockingQueue<>(capacity);
         this.statsMonitoringQueue = new ArrayBlockingQueue<>(capacity);
+        this.map = new LinkedHashMap<>();
         this.rateWindow = new ConcurrentSlidingWindow();
     }
 
@@ -41,13 +44,5 @@ public class SharedResources {
     }
 
     public synchronized Integer getRateWindowCount() { return this.rateWindow.size(); }
-
-    public void setIdle(Boolean status) {
-        collectorIdle = status;
-    }
-
-    public Boolean isCollectorIdle() {
-        return collectorIdle;
-    }
 
 }

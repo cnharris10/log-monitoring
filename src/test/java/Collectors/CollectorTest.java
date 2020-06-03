@@ -95,8 +95,6 @@ class CollectorTest {
             Collector collectorHeaderOnly = new Collector(filename);
             Collector collectorSpy = Mockito.spy(collectorHeaderOnly);
             try { collectorSpy.read(); } catch (Exception ex) { }
-            verify(collectorSpy, times(1)).setIdle(false);
-            verify(collectorSpy, times(1)).setIdle(true);
             verify(collectorSpy, never()).send(anyString());
         } catch(Exception ex) { }
     }
@@ -112,9 +110,7 @@ class CollectorTest {
             Collector collectorHeaderOnly = new Collector(filename);
             Collector collectorSpy = Mockito.spy(collectorHeaderOnly);
             try { collectorSpy.read(); } catch (Exception ex) { }
-            verify(collectorSpy, times(1)).setIdle(false);
             verify(collectorSpy, times(1)).send(line);
-            verify(collectorSpy, times(1)).setIdle(true);
         } catch(Exception ex) { }
     }
 

@@ -1,3 +1,4 @@
+import Cleaners.StatsCleaner;
 import Collectors.Collector;
 import Monitoring.RateMonitor;
 import Monitoring.StatsMonitor;
@@ -25,6 +26,7 @@ public class LogMonitorManager {
     public static Integer intervalLength = 10;
     public static Integer processingWindow = 30;
     public static Integer numberOfSecondsInTwoMinutes = 120;
+    public static Integer processingTimeoutInSeconds = 3;
     public static List<Thread> threads;
 
     public static void main(String[] args) {
@@ -75,7 +77,7 @@ public class LogMonitorManager {
 
         log.info("Loading Processors...");
         // Processors
-        threads.add(new Thread(new StatsProcessor(instance.statsProcessingQueue, instance.statsMonitoringQueue, intervalLength, processingWindow)
+        threads.add(new Thread(new StatsProcessor(instance.statsProcessingQueue, instance.statsMonitoringQueue, instance.map, intervalLength, processingWindow, processingTimeoutInSeconds)
         ));
         threads.add(new Thread(new RateProcessor(instance.rateProcessingQueue)));
 

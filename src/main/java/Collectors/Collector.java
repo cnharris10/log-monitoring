@@ -29,7 +29,6 @@ public class Collector implements Runnable, Collectable, Sendable {
     // Read input file one line at a time and queue massaged data into N pipelines
     // Examine first line (once) and skip if it is the known sample data header
     public void read() {
-        setIdle(false);
         while (scanner.hasNextLine()) {
             String rawLine = scanner.nextLine();
             if(!header) {
@@ -40,7 +39,6 @@ public class Collector implements Runnable, Collectable, Sendable {
             }
             send(rawLine);
         }
-        setIdle(true);
     }
 
     @Override
@@ -49,11 +47,6 @@ public class Collector implements Runnable, Collectable, Sendable {
         if(line != null) {
             this.pipelines.forEach(pipeline -> pipeline.ingest(line));
         }
-    }
-
-    // Track whether collector is running or idle
-    public void setIdle(Boolean flag) {
-        SharedResources.instance().setIdle(flag);
     }
 
     protected Scanner buildScanner() throws Exception {
