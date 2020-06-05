@@ -2,18 +2,13 @@ package Processors;
 
 import Models.StatsPipelineGroupedRecord;
 import Models.StatsPipelineRecord;
-import Monitoring.StatsMonitor;
-import Monitoring.StreamingMonitor;
 import Shared.SharedResources;
-import org.apache.log4j.Logger;
 
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class StatsProcessor extends Processor {
-
-    static Logger log = Logger.getLogger(StatsMonitor.class);
 
     protected ArrayBlockingQueue<StatsPipelineGroupedRecord> monitoringQueue;
     protected LinkedHashMap<Integer, List<StatsPipelineRecord>> map;
@@ -70,7 +65,7 @@ public class StatsProcessor extends Processor {
         }
         long now = Instant.now().getEpochSecond();
         if ((now - nullStartTime) > processingTimeoutInSeconds){
-            log.info("StatsProcessor is idle after "+processingTimeoutInSeconds+" seconds");
+            SharedResources.instance().logger.log("StatsProcessor is idle after "+processingTimeoutInSeconds+" seconds");
             idle = true;
         }
     }

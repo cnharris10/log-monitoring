@@ -1,6 +1,8 @@
 package Models;
 
-public class StatsPipelineRecord extends Record {
+import java.io.Serializable;
+
+public class StatsPipelineRecord extends Record implements Serializable {
 
     protected String pathSection;
     protected Integer bytes;

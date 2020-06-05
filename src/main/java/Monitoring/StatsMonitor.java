@@ -1,14 +1,17 @@
 package Monitoring;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.stream.Collectors;
 
 import Models.StatsPipelineGroupedRecord;
 import Models.StatsPipelineRecord;
 
 import Shared.SharedResources;
 import Views.StatsView;
+import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.JavaRDD;
+import scala.Tuple2;
 
 public class StatsMonitor extends StreamingMonitor {
 
@@ -43,12 +46,11 @@ public class StatsMonitor extends StreamingMonitor {
     }
 
     // Calculate top N sections by section name and hit count for given interval
-    protected List<Map.Entry<String, Long>> topSections(Integer key, List<StatsPipelineRecord> data) {
-        Map<String, Long> map = data.stream()
-                .collect(Collectors.groupingBy(w -> w.getPathSection(), Collectors.counting()));
-        return map.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .collect(Collectors.toList());
+    protected List topSections(Integer key, List<StatsPipelineRecord> data) {
+        JavaRDD<StatsPipelineRecord> rdd = SharedResources.instance().sc.parallelize(data);
+        JavaPairRDD<String, Integer> reduced = rdd.mapToPair(obj -> new Tuple2<>(obj.getPathSection(), 1)).reduceByKey((a, b) -> a + b);
+        JavaPairRDD<Integer, String> reducedSwapped = reduced.mapToPair(obj -> obj.swap()).sortByKey(false);
+        return reducedSwapped.collect();
     }
 
     // Count all requests with status 2XX

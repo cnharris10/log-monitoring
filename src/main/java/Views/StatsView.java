@@ -1,5 +1,8 @@
 package Views;
 
+import Shared.SharedResources;
+import scala.Tuple2;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +12,7 @@ public class StatsView extends View {
     final private Long totalRequests;
     final private Integer intervalStart;
     final private Integer intervalEnd;
-    private List<Map.Entry<String, Long>> topSections;
+    private List<Tuple2<Long, String>> topSections;
     private Long successTotal;
     private Long failuresTotal;
     private Double successesPercentage;
@@ -26,7 +29,7 @@ public class StatsView extends View {
         this.intervalEnd = intervalEnd;
     }
 
-    public void addTopSections(List<Map.Entry<String, Long>> topSections) {
+    public void addTopSections(List<Tuple2<Long,String>> topSections) {
         this.topSections = topSections;
     }
 
@@ -44,15 +47,13 @@ public class StatsView extends View {
         this.bytesTotal = bytes;
     }
 
-    public <T> void present(T data) {
-        log.info(data);
-    }
+    public <T> void present(T data) { SharedResources.instance().logger.log(data); }
 
     // Present top sections and debug status in console
     // Example:
     //    ------------------------------------------------------
     //    Top sections for interval: 1549574210 - 1549574220
-    //    Section: /api - Count: 242
+    //    Section: /api - Count: 242og
     //    Section: /report - Count: 30
     //    Successes: 226 (0.8308823529411765%)
     //    Failures: 46 (0.16911764705882348%)
@@ -63,7 +64,7 @@ public class StatsView extends View {
         List<String> output = new ArrayList<>();
         output.add("\n------------------------------------------------------");
         output.add("Top sections for interval: "+intervalStart+" - "+intervalEnd);
-        topSections.forEach(section -> output.add("Section: "+section.getKey()+" - " +section.getValue()));
+        topSections.forEach(section -> output.add("Section: "+section._1+" - " +section._2));
         output.add("Successes: "+successTotal+" ("+successesPercentage+"%)");
         output.add("Failures: "+failuresTotal+" ("+failuresPercentage+"%)");
         output.add("Total Requests: "+totalRequests);

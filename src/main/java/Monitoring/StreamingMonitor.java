@@ -1,6 +1,5 @@
 package Monitoring;
 
-
 import Shared.SharedResources;
 
 public class StreamingMonitor implements Monitorable, Runnable {

@@ -1,10 +1,8 @@
 package Models;
 
-import org.apache.log4j.Logger;
+import Shared.SharedResources;
 
 public class LogRecord extends Record {
-
-    public static Logger log = Logger.getLogger(LogRecord.class);
 
     private static String delimiter = ",";
     private static String headerMatchingWord = "remotehost";
@@ -21,7 +19,7 @@ public class LogRecord extends Record {
             record.setBytes(parts[6]);
             return record;
         } catch(Exception ex) {
-            log.error("Invalid log line, skipping: "+logLine);
+            SharedResources.instance().logger.log("Invalid log line, skipping: "+logLine);
             return null;
         }
     }

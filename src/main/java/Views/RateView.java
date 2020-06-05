@@ -1,5 +1,7 @@
 package Views;
 
+import Shared.SharedResources;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class RateView extends View {
     }
 
     public <T> void present(T output) {
-        log.info(output);
+        SharedResources.instance().logger.log(output);
     }
 
     private RateView alert() {
